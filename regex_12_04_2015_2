@@ -1,0 +1,77 @@
+
+#Determine keyword and whether the command is a 'bring' or 'take' action
+
+def Commands(INPUT):
+    import re
+    bring = re.match(r".*?(?:bring|get|fetch|grab|go\s*and\s*get|can\s*you\s*get)\s*(?:me|some|that|those)\s*.*(hammer|tea|cup|phone|space\s*-?\s*suit|aspirin|dinner|bananna|controller|plaster|tank|bag|spanner|drill|message|syringe).*",INPUT)
+    
+    take = re.match(r".*?(?:can\s*you|would\s*you|will\s*you|please)?\s*(?:take\s*(?:my|this))\s*.*(hammer|tea|cup|phone|space\s*-?\s*suit|aspirin|dinner|bananna|controller|plaster|tank|bag|spanner|drill|message|syringe).*", INPUT)
+    
+    data1 = []
+    data2 = []
+    if bring != None:
+        s1 = bring.group(1)
+        data1.append(s1)
+        print 'required keyword is a \'bring\' command: ' + str(data1)
+        return data1
+        
+    elif take != None:
+        s2 = take.group(1)
+        data2.append(s2)
+        print 'required keyword is a \'bring\' command: ' + str(data2)
+        return data2
+        
+    else:
+        print 'no match'
+
+# The string entered here, would be the text output by voice to text converter
+output = Commands('can you take this tea to the kitchen?')
+
+
+
+#Determine location from the command
+
+def location(output):
+    toolCupboard = ['hammer','controller','spanner','drill']
+    kitchen = ['tea','cup','dinner','bananna']
+    bathroom = ['plaster','syringe']
+    sleepingArea = ['space suit']
+    person = ['message']
+    noLocation = ['phone']
+
+    for e in output:
+        if e in toolCupboard:
+            location = 'tool cupboard'
+            print 'the location is: ' + str(location)
+            return location
+        if e in kitchen:
+            location = 'kitchen'
+            print 'the location is: ' + str(location)
+            return location
+        if e in bathroom:
+            location = 'bathroom'
+            print 'the location is: ' + str(location)
+            return location
+        if e in sleepingArea:
+            location = 'sleeping area'
+            print 'the location is: ' + str(location)
+            return location
+        elif e in person:
+            location = 'person'
+            print 'the location is: ' + str(location)
+            return location
+        else:
+            location = 'no location'
+            print 'the location is: ' + str(location)
+            return location
+        return location
+
+
+location(output)
+      
+      
+    
+
+
+  
+      
